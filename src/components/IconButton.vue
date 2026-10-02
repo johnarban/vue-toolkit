@@ -10,7 +10,7 @@
     :class="['icon-button-v-tooltip', disabled ? 'disabled-tooltip' : '']"
   >
     <template #activator="{ props: tooltipProps }: { props: Record<string,any> }">
-      <div
+      <button
         v-bind="tooltipProps"
         :id="buttonID"
         :class="['icon-wrapper', {'active': modelValue}, attrs.class, {'disabled': disabled}]"
@@ -18,7 +18,7 @@
         :aria-disabled="disabled"
         :aria-label="ariaLabel"
         :aria-pressed="modelValue != null ? (modelValue ? 'true' : 'false') : undefined"
-        :disabled="disabled ? '' : undefined"
+        :disabled="disabled"
         tabindex="0"
         role="button"
         @click="handleAction"
@@ -43,7 +43,7 @@
             </template>
           </v-icon>
         </slot>
-      </div>
+      </button>
     </template>
     <span>{{ tooltipText }}</span>
   </v-tooltip>
@@ -51,7 +51,7 @@
 
 
 <script setup lang="ts">
-import { computed, ref, useAttrs, type VNode } from "vue";
+import { computed, ref, useAttrs, nextTick, type VNode } from "vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { VIcon } from "vuetify/components/VIcon";
 import { VTooltip } from "vuetify/components/VTooltip";
@@ -64,6 +64,7 @@ const props = withDefaults(defineProps<IconButtonProps>(), {
   color: "#ffffff",
   focusColor: "#ffffff",
   activeColor: "#ffffff",
+  disabledColor: "rgba(255, 255, 255, 0.38)",
   backgroundColor: "#040404",
   border: true,
   longPressTimeMs: 500,
@@ -103,16 +104,15 @@ const cssVars = computed(() => {
     "--background-color": props.backgroundColor,
     "--focus-color": props.focusColor,
     "--active-color": props.activeColor,
-    "--disabled-color": "rgba(255, 255, 255, 0.38)",
+    "--disabled-color": props.disabledColor,
     "--border": props.border ? "1px solid var(--color)" : "none",
   };
 });
 const attrs = useAttrs();
 
 const buttonID = computed(() => {
-  const id = attrs['id'];
-  const prefix = id ?? v4();
-  return `${prefix}-button`;
+  const id = attrs['id'] as string | undefined;
+  return id ?? `${v4()}-icon-button`;
 });
 
 function isNumber(value: string | number | undefined): value is number {
@@ -151,12 +151,24 @@ function updateValue() {
   emit("update:modelValue", !props.modelValue);
 }
 
+function focusElement() {
+  if (props.focusElement) {
+    const element = document.querySelector(props.focusElement) as HTMLElement | null;
+    if (element) {
+      element.focus();
+    } else {
+      console.warn(`IconButton: focus-element selector "${props.focusElement}" did not match any elements. Make sure the element exists in the DOM and that the selector is correct. For complex layouts managing focus from the @activate event may be more reliable`);
+    }
+  }
+}
+
 function handleAction() {
   if (props.disabled) {
     return;
   }
   updateValue();
   emit('activate');
+  nextTick(focusElement);
 }
 
 function handleTouchStart() {
