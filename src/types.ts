@@ -169,6 +169,10 @@ export interface IconButtonProps {
   size?: FontAwesomeIconSize | VIconSize;
   /** Disable the button and prevent actions from running: Default is false */
   disabled?: boolean;
+  /** The element to focus when icon value is true */
+  focusElement?: string;
+  /** When used in a Vuetify activator slot, bind the props here instead of on v-bind */
+  activatorProps?: Record<string, unknown>;
 }
 
 

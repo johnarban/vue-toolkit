@@ -11,7 +11,7 @@
   >
     <template #activator="{ props: tooltipProps }: { props: Record<string,any> }">
       <button
-        v-bind="tooltipProps"
+        v-bind="mergeProps(activatorProps ?? {}, tooltipProps)"
         :id="buttonID"
         :class="['icon-wrapper', {'active': modelValue}, attrs.class, {'disabled': disabled}]"
         :style="cssVars"
@@ -22,7 +22,6 @@
         tabindex="0"
         role="button"
         @click="handleAction"
-        @keyup.enter="handleAction"
         @touchstart="handleTouchStart"
         @touchend="handleTouchEnd"
       >
@@ -51,7 +50,7 @@
 
 
 <script setup lang="ts">
-import { computed, ref, useAttrs, nextTick, type VNode } from "vue";
+import { computed, ref, useAttrs, nextTick, mergeProps, type VNode } from "vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { VIcon } from "vuetify/components/VIcon";
 import { VTooltip } from "vuetify/components/VTooltip";
