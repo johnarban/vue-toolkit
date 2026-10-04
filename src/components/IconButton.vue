@@ -198,6 +198,7 @@ function handleTouchEnd() {
   justify-content: center;
   pointer-events: auto;
   border-radius: 20px;
+  width: min-content;
 
   &:hover {
     cursor: pointer;

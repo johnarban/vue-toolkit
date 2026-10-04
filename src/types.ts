@@ -145,6 +145,8 @@ export interface IconButtonProps {
   activeColor?: string;
   /** The background color of the button. Default is #040404 */
   backgroundColor?: string;
+  /** The color for the disabled button */
+  disabledColor?: string;
   /** Whether the button has a border. Default is true */
   border?: boolean;
   /** The time duration, in ms, to recognize a press event as a long press. Default is 500 */
