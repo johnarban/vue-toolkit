@@ -16,7 +16,7 @@
         :class="['icon-wrapper', {'active': modelValue}, attrs.class, {'disabled': disabled}]"
         :style="cssVars"
         :aria-disabled="disabled"
-        :aria-label="ariaLabel"
+        :aria-label="props.ariaLabel ?? (attrs['aria-label'] as string | undefined) ?? tooltipText"
         :aria-pressed="modelValue != null ? (modelValue ? 'true' : 'false') : undefined"
         :disabled="disabled"
         tabindex="0"

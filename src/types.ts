@@ -135,8 +135,8 @@ export interface IconButtonProps {
   modelValue?: boolean;
   /** The name of the FontAwesome or MDI icon to use. MDI icons should be specified with their `mdi-` prefix */
   icon: string;
-  /** ARIA label for the button */
-  ariaLabel: string;
+  /** ARIA label for the button. Can also be passed as a plain `aria-label` attribute instead. */
+  ariaLabel?: string;
   /** The primary color of the button. Sets the icon and border colors. Default is white */
   color?: string;
   /** The color of the button when focused. Default is white */
