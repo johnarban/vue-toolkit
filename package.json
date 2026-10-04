@@ -51,6 +51,7 @@
     "less": "^4.2.0",
     "less-loader": "^12.1.0",
     "markdown-loader": "^8.0.0",
+    "npm-run-all2": "^8.0.4",
     "playwright": "^1.63.0",
     "prismjs": "^1.30.0",
     "pug": "^3.0.3",
@@ -86,6 +87,9 @@
   },
   "scripts": {
     "build": "tsc --noEmit && vue-tsc --noEmit && vite build",
+    "watch-build": "vite build --watch --mode watch",
+    "watch-types": "vue-tsc -p tsconfig.watch.json --watch --preserveWatchOutput",
+    "build-watch": "run-p watch-build watch-types",
     "clean": "rimraf dist",
     "docs": "typedoc --plugin typedoc-plugin-markdown",
     "typecheck": "vue-tsc --noEmit",
