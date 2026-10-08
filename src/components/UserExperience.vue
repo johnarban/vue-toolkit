@@ -18,6 +18,9 @@
       </div>
     </template>
     <v-card-text>
+      <!-- TODO: contemplate changing this to focus the v-form with tabindex="-1"
+       and using left/right arrow keys to select the rating, and enter to submit. 
+        -->
       <v-form
         @submit.prevent="emit('finish', currentRating, comments)"
       >
@@ -32,14 +35,20 @@
                 :key="rating"
               >
                 <template #default="{ isHovering, props: tooltipProps }: { isHovering: boolean | null, props: Record<string, unknown> }">
-                  <FontAwesomeIcon
+                  <button
                     v-bind="tooltipProps"
-                    :size="iconSize"
-                    :class="['rating', rating, {'hovered': isHovering}, {'selected': rating === currentRating}]"
-                    :icon="ratingIcons[rating as UserExperienceRating][0]"
-                    :color="(isHovering || rating === currentRating) ? ratingIcons[rating as UserExperienceRating][1]: baseColor"
-                    @click="currentRating = rating as UserExperienceRating"
-                  />
+                    class="rating-button"
+                    :aria-label="rating"
+                    :aria-pressed="rating === currentRating"
+                    @click="setRating(rating)"
+                  >
+                    <FontAwesomeIcon
+                      :size="iconSize"
+                      :class="['rating', rating, {'hovered': isHovering}, {'selected': rating === currentRating}]"
+                      :icon="ratingIcons[rating as UserExperienceRating][0]"
+                      :color="(isHovering || rating === currentRating) ? ratingIcons[rating as UserExperienceRating][1]: baseColor"
+                    />
+                  </button>
                 </template>
               </v-hover>
             </slot>
@@ -140,6 +149,10 @@ const baseColor = computed(() => props.baseColor ?? (currentTheme.value.dark ? '
 const comments = ref<string | null>(null);
 const showComments = ref(false);
 
+function setRating(rating: UserExperienceRating | null) {
+  currentRating.value = rating;
+}
+
 watch(currentRating, (rating: UserExperienceRating | null) => {
   if (rating) {
     if (props.askForComments) {
@@ -167,6 +180,10 @@ watch(currentRating, (rating: UserExperienceRating | null) => {
     gap: 10px;
     padding: 20px;
     justify-content: center;
+  }
+
+  .rating-button {
+    cursor: pointer;
   }
 
   .rating {
