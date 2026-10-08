@@ -2,7 +2,7 @@
 
 import { ref } from "vue";
 import { Meta, StoryObj } from "@storybook/vue3-vite";
-import { addStep, createNextButton, createTour } from "../tours";
+import { addStep, createNextButton, createTour } from "../shepherd_tours";
 
 import "./stories.css";
 import "./tours.css";
