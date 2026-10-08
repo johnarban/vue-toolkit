@@ -4,7 +4,7 @@
     :style="cssVars"
   >
     <!-- add a close box -->
-    <div
+    <button
       v-if="(inline && inlineButton) || showCloseButton"
       id="playback-close-button"
       @click="emit('closed')"
@@ -15,7 +15,7 @@
       >
         mdi-close
       </v-icon>
-    </div>
+    </button>
     
     <div
       v-if="!inline || inlineButton && !hidePlayButton"
