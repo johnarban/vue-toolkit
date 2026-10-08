@@ -11,6 +11,7 @@ import { useTour, type BaseTourStepContent, type Tour } from "./composables/tour
 import type { WindowShape } from "./composables/windowShape";
 import { useWindowShape } from "./composables/windowShape";
 import { useWWTKeyboardControls } from "./composables/wwtKeyboard";
+import { useDataTracking, type DataTrackingOptions } from "./composables/dataTracking";
 
 import AttentionHook from "./components/AttentionHook.vue";
 import CreditLogos from "./components/CreditLogos.vue";
@@ -49,6 +50,8 @@ export {
   useTour,
   useWindowShape,
   useWWTKeyboardControls,
+  useDataTracking,
+  DataTrackingOptions,
 
   AttentionHook,
   CreditLogos,
