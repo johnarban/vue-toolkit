@@ -483,7 +483,7 @@ export interface TourSheetProps<T extends BaseTourStepContent> {
   /** The tour object to use in the component. */
   tour: Tour<T>;
   /** Whether to apply small-size classes to the component. */
-  smallSize: boolean,
+  smallSize?: boolean,
   /** Whether to show the tour step dots. */
   showBreadcrumbs?: boolean,
   /** Whether to show the next button on the last tour step. */

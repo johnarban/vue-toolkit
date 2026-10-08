@@ -28,11 +28,12 @@ export interface Tour<T extends BaseTourStepContent> {
   previous: () => Promise<void>;
 };
 
-export function useTour<T extends BaseTourStepContent>(options: UseTourOptions<T>) {
+export function useTour<T extends BaseTourStepContent>(options: UseTourOptions<T>): Tour<T> {
   const steps = options.steps;
   const stepNumber = clamp(options.initialStep ?? 0, 0, steps.length - 1);
   const stepIndex = ref(stepNumber);
   const stepContent = computed(() => steps[stepIndex.value]);
+  const length = steps.length;
 
   const stepID = computed({
     get(): string {
@@ -96,6 +97,7 @@ export function useTour<T extends BaseTourStepContent>(options: UseTourOptions<T
     steps,
     stepIndex,
     stepID,
+    length,
     stepContent,
     goToStep,
     previous,

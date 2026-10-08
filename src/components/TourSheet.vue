@@ -28,6 +28,7 @@
             v-for="(paragraph, i) in stepContent.text"
             :key="i"
           >
+            <!-- eslint-disable-next-line vue/no-v-html -->
             <span v-html="simpleMarkdownParse(paragraph)" />
           </p>
         </div>
@@ -90,13 +91,20 @@
     </template>
   </div>
 </template>
-
-<script setup lang="ts" generic="T extends import('../composables/tour').BaseTourStepContent">
+<script lang="ts">
+import type { BaseTourStepContent } from '../composables/tour';
+</script>
+<script setup lang="ts" generic="T extends BaseTourStepContent">
 import { simpleMarkdownParse } from "../utils";
 import { computed } from 'vue';
-import { TourSheetProps } from '@/types';
+import { TourSheetProps } from '../types';
+import { VIcon } from 'vuetify/components/VIcon';
+import { VBtn } from 'vuetify/components/VBtn';
+import { VSpacer } from 'vuetify/lib/components/index.mjs';
+import { VBreadcrumbs } from 'vuetify/components/VBreadcrumbs';
 
 const props = withDefaults(defineProps<TourSheetProps<T>>(), {
+  smallSize: false,
   showBreadcrumbs: true,
   showNextOnLastStep: false,
   showBackOnFirstStep: false,
