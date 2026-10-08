@@ -4,7 +4,9 @@
     v-if="!editing || !props.editable"
     ref="display"
     class="tti__display"
+    tabindex="0"
     @click="editing = !editing"
+    @keyup.enter="editing = !editing"
   >{{ pad(pseudoValue) }}
   </span>
   <input 
