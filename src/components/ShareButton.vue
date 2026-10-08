@@ -4,37 +4,41 @@
     :text="tooltipText"
   >
     <template #activator="{ props: tooltipProps }: { props: Record<string,any> }">
-      <v-btn
-        :id="id"
-        :aria-label="ariaLabel"
-        class="share-button"
-        icon
-        v-bind="tooltipProps"
-        :color="buttonColor"
-        :elevation="elevation"
-        :size="size"
-        :rounded="rounded"
-        @click="share"
-        @keyup.enter="share"
-      > 
-        <v-icon :color="iconColor">
-          mdi-share-variant
-        </v-icon>
-      </v-btn>
-      <v-snackbar 
-        v-if="!tooltip || alert"
-        class="share-button-snackbar"   
-        timeout="3500" 
-        location="top" 
-        :activator="`#${id}`"
-        :text="alertText"
-        color="success"
-        variant="flat"
-        min-height="0px"
-        min-width="0px"
-        transition="slide-y-transition"
-        close-on-content-click
-      />
+      <slot 
+        name="activator" 
+        v-bind="{...tooltipProps, onClick: share, }"
+      >
+        <v-btn
+          :id="id"
+          :aria-label="ariaLabel"
+          class="share-button"
+          icon
+          v-bind="tooltipProps"
+          :color="buttonColor"
+          :elevation="elevation"
+          :size="size"
+          :rounded="rounded"
+          @click="share"
+        > 
+          <v-icon :color="iconColor">
+            mdi-share-variant
+          </v-icon>
+        </v-btn>
+        <v-snackbar 
+          v-if="!tooltip || alert"
+          class="share-button-snackbar"   
+          timeout="3500" 
+          location="top" 
+          :activator="`#${id}`"
+          :text="alertText"
+          color="success"
+          variant="flat"
+          min-height="0px"
+          min-width="0px"
+          transition="slide-y-transition"
+          close-on-content-click
+        />
+      </slot>
     </template>
   </v-tooltip>
 </template>
@@ -42,6 +46,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useClipboard } from "@vueuse/core";
+import { VTooltip, VBtn, VIcon, VSnackbar } from "vuetify/components";
 const { copy } = useClipboard();
 import { v4 } from "uuid";
 import type { ShareButtonProps } from "../types";
