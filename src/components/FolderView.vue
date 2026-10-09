@@ -69,7 +69,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref, watch, type Ref, toRaw } from "vue";
+import { computed, onMounted, ref, watch, type Ref } from "vue";
 import { VProgressCircular } from "vuetify/components";
 import { Folder, FolderUp } from "@wwtelescope/engine";
 import { Thumbnail } from "@wwtelescope/engine-types";
