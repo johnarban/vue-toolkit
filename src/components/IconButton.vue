@@ -20,7 +20,6 @@
         :aria-pressed="modelValue != null ? (modelValue ? 'true' : 'false') : undefined"
         :disabled="disabled"
         tabindex="0"
-        role="button"
         @click="handleAction"
         @touchstart="handleTouchStart"
         @touchend="handleTouchEnd"
