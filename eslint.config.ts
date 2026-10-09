@@ -4,14 +4,15 @@ import eslint from '@eslint/js';
 import tseslint from 'typescript-eslint';
 import pluginVue from 'eslint-plugin-vue';
 import pluginStorybook from 'eslint-plugin-storybook';
+import pluginVueA11y from 'eslint-plugin-vuejs-accessibility';
 import vueParser from 'vue-eslint-parser';
 import stylistic from "@stylistic/eslint-plugin";
 
 export default defineConfig([
   {
     ignores: [
-      '**/dist/**', 
-      '**/docs/**', 
+      '**/dist/**',
+      '**/docs/**',
       '**/node_modules/**'
     ]
   },
@@ -22,6 +23,22 @@ export default defineConfig([
   ...pluginVue.configs['flat/recommended'],
 
   ...pluginStorybook.configs['flat/recommended'],
+
+  ...pluginVueA11y.configs['flat/recommended'],
+
+  {
+    files: ['**/*.vue'],
+    rules: {
+      // we will probably want to enable this at some point.
+      'vuejs-accessibility/media-has-caption': 'off',
+      // this probably is a good rule to have, but too strict for a starter template
+      'vuejs-accessibility/tabindex-no-positive': 'off',
+      'vuejs-accessibility/label-has-for': ['error', {
+        required: { some: ['nesting', 'id'] },
+        allowChildren: true,
+      }],
+    },
+  },
 
   {
     files: ['**/*.ts', '**/*.tsx', '**/*.vue', '**/*.js'],

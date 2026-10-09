@@ -200,6 +200,7 @@ __metadata:
     eslint: "npm:^10.9.1"
     eslint-plugin-storybook: "npm:^10.5.10"
     eslint-plugin-vue: "npm:^10.10.0"
+    eslint-plugin-vuejs-accessibility: "npm:^2.6.0"
     globals: "npm:^17.12.0"
     html-loader: "npm:^5.1.0"
     jiti: "npm:^2.7.0"
@@ -2699,7 +2700,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"aria-query@npm:^5.0.0":
+"aria-query@npm:^5.0.0, aria-query@npm:^5.3.0":
   version: 5.3.2
   resolution: "aria-query@npm:5.3.2"
   checksum: 10/b2fe9bc98bd401bc322ccb99717c1ae2aaf53ea0d468d6e7aebdc02fac736e4a99b46971ee05b783b08ade23c675b2d8b60e4a1222a95f6e27bc4d2a0bfdcc03
@@ -3532,6 +3533,19 @@ __metadata:
     "@typescript-eslint/parser":
       optional: true
   checksum: 10/1c217fd0588cc7ce9a988a9316611f8217f0b9e22bac3a4f6a5dce176dd57b55e10de5c9b1c37d35622607c1f1e8a6e9777f628a9af9943f0d008da9cb2a79ee
+  languageName: node
+  linkType: hard
+
+"eslint-plugin-vuejs-accessibility@npm:^2.6.0":
+  version: 2.6.2
+  resolution: "eslint-plugin-vuejs-accessibility@npm:2.6.2"
+  dependencies:
+    aria-query: "npm:^5.3.0"
+    vue-eslint-parser: "npm:^9.0.0 || ^10.0.0"
+  peerDependencies:
+    eslint: ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0 || ^9.0.0 || ^10.0.0
+    globals: ">= 13.12.1"
+  checksum: 10/10c045640037f5127532a31f51da556afcad08fc00368e3f507ce9fe175582b7c7ec49655f4f53f77c20cb73dc3df36aa84234ed680bb7e8579196fedd0c3495
   languageName: node
   linkType: hard
 
@@ -6985,7 +6999,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vue-eslint-parser@npm:^10.4.1":
+"vue-eslint-parser@npm:^10.4.1, vue-eslint-parser@npm:^9.0.0 || ^10.0.0":
   version: 10.4.1
   resolution: "vue-eslint-parser@npm:10.4.1"
   dependencies:
