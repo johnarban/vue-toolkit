@@ -5,6 +5,7 @@
     <div
       class="just-holding-events"
       tabindex="0"
+      role="button"
       @click="open = true"
       @keyup.enter="open = true"
     >
@@ -17,6 +18,8 @@
       >
         <div
           class="default-activator blurred"
+          role="button"
+          tabindex="0"
           @click="open = true"
           @keyup.enter="open = true"
         >
@@ -28,6 +31,7 @@
           <img
             class="noselect"
             :src="places[previewIndex] ? (getImageset(places[previewIndex])?.get_thumbnailUrl() ?? '') : ''"
+            :alt="places[previewIndex] ? places[previewIndex].get_name() : ''"
           >
         </div>
       </slot>
@@ -56,14 +60,27 @@
         <div
           v-for="[index, place] of places.entries()"
           :key="index"
+          tabindex="0"
+          role="button"
           :class="['gallery-item', {'selected': highlightLastOnly ? selectedPlace === place : selectedPlaces.includes(place)}]"
           @click="selectPlace(place)"
+          @keyup.enter="selectPlace(place)"
         >
-          <img
-            class="noselect"
-            :src="getImageset(place)?.get_thumbnailUrl() ?? ''"
+          <slot
+            name="preview"
+            :place="place"
+            :index="index"
+            :imageset="getImageset(place)"
+            :thumbnail-url="getImageset(place)?.get_thumbnailUrl() ?? ''"
+            :selected="highlightLastOnly ? selectedPlace === place : selectedPlaces.includes(place)"
           >
-          <span class="place-name noselect">{{ place.get_name() }}</span>
+            <img
+              class="noselect"
+              :src="getImageset(place)?.get_thumbnailUrl() ?? ''"
+              :alt="place.get_name()"
+            >
+            <span class="place-name noselect">{{ place.get_name() }}</span>
+          </slot>
         </div>
       </div>
     </div>
@@ -109,6 +126,14 @@ defineSlots<{
     places: Place[],
     selectedPlace: Place | null,
     selectedPlaces: Place[],
+  }): VNode[];
+  /** A slot for what to display for a single gallery item */
+  preview(props: {
+    place: Place,
+    index: number,
+    imageset: Imageset | null,
+    thumbnailUrl: string,
+    selected: boolean,
   }): VNode[];
 }>();
 
@@ -218,12 +243,8 @@ watch(selectedPlace, (place) => {
     flex-direction: column;
     overflow-y: auto;
     max-height: var(--gallery-max-height);
-    width: min(calc(var(--gallery-width)), calc(100%));
-
-    // Better way to do this?
-  position: fixed;
-  left: 50%;
-  transform: translateX(-50%);
+    width: 100vw;
+    max-width: var(--gallery-width);
   }
 
   .noselect {
