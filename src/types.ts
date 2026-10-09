@@ -136,7 +136,7 @@ export interface IconButtonProps {
   /** The name of the FontAwesome or MDI icon to use. MDI icons should be specified with their `mdi-` prefix */
   icon: string;
   /** ARIA label for the button. Can also be passed as a plain `aria-label` attribute instead. */
-  ariaLabel?: string;
+  ariaLabel: string;
   /** The primary color of the button. Sets the icon and border colors. Default is white */
   color?: string;
   /** The color of the button when focused. Default is white */
@@ -378,6 +378,8 @@ export interface LocationSearchProps {
 export interface TapToInputProps {
   /** The current value of the input */
   modelValue: number;
+  /** ARIA label for the input. Can also be passed as a plain `aria-label` attribute instead. */
+  ariaLabel: string;
   /** Whether the input should be editable */
   editable?: boolean;
   /** The minimum allowed value */

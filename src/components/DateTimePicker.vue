@@ -23,6 +23,7 @@
           class="dtp__grid-item dtp__time_part"
           :min="limits.year.min"
           :max="limits.year.max"
+          aria-label="Year"
         />
         <!-- 3-1 -->
         <button
@@ -58,6 +59,7 @@
           :min="limits.month.min"
           :max="limits.month.max"
           pad2
+          aria-label="Month"
         />
         <!-- 3-3 -->
         <button
@@ -95,6 +97,7 @@
           :min="limits.day.min"
           :max="limits.day.max"
           pad2
+          aria-label="Day"
         />
         <!-- 3-5 -->
         <button
@@ -132,6 +135,7 @@
           :min="limits.hour.min"
           :max="limits.hour.max"
           pad2
+          aria-label="Hour"
         />
         <!-- 3-7 -->
         <button
@@ -167,6 +171,7 @@
           :min="limits.minute.min"
           :max="limits.minute.max"
           pad2
+          aria-label="Minute"
         />
         <!-- 3-9 -->
         <button
@@ -202,6 +207,7 @@
           :min="limits.second.min"
           :max="limits.second.max"
           pad2
+          aria-label="Second"
         />
         <!-- 3-11 -->
         <button
