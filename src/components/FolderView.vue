@@ -69,7 +69,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref, watch, type Ref } from "vue";
+import { computed, onMounted, ref, watch, type Ref, toRaw } from "vue";
 import { VProgressCircular } from "vuetify/components";
 import { Folder, FolderUp } from "@wwtelescope/engine";
 import { Thumbnail } from "@wwtelescope/engine-types";
@@ -149,7 +149,8 @@ function folderItems(folder: Folder, includeUp=true): Thumbnail[] {
     }
     items.push(up);
   }
-  return items.concat(folder.get_children() ?? []);
+  const children = (folder.get_children() ?? []).filter((item) => (!(item instanceof FolderUp)));
+  return items.concat(children);
 }
 
 function selectItem(item: Thumbnail, type: ItemSelectionType) {
