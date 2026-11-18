@@ -15,9 +15,10 @@ export interface UseUserExperienceRatingOptions {
   /** defaults to the story prefix */
   storagePrefix?: string;
   mixin?: boolean;
+  apiKey: string;
 }
 
-export function useUserExperienceRating(storyPrefix: string, uuid: MaybeRef<string>, options?: UseUserExperienceRatingOptions) {
+export function useUserExperienceRating(storyPrefix: string, uuid: MaybeRef<string>, options: UseUserExperienceRatingOptions) {
 
   const responseOptOut = options?.responseOptOut ?? ref(null);
 
@@ -66,7 +67,7 @@ export function useUserExperienceRating(storyPrefix: string, uuid: MaybeRef<stri
       method: "GET",
       headers: {
         // eslint-disable-next-line @typescript-eslint/naming-convention
-        Authorization: import.meta.env.VITE_CDS_API_KEY ?? "",
+        Authorization: options.apiKey,
       },
     });
 
